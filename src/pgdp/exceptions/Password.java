@@ -26,7 +26,7 @@ public class Password {
     }
 
 
-    public void checkFormat(String pwd) throws Exception {
+    public void checkFormat(String pwd) throws NotEnoughException, IllegalCharException{
         int upperCaseAmount = (int)  pwd.chars().filter(c-> c>='A' && c<='Z').count();
         int lowerCaseAmount = (int)  pwd.chars().filter(c-> c>='a' && c<='z').count();
         int illegalCharacterAmount = (int)  pwd.chars().filter(c -> matchesIllegalCharacter(illegalChars,(char) c)).count();
@@ -47,13 +47,12 @@ public class Password {
 
     }
 
-    public void checkFormatWithLogging(String pwd) {
-
+    public void checkFormatWithLogging(String pwd) throws NotEnoughException, IllegalCharException {
         try{
             checkFormat(pwd);
-        } catch (Exception e) {
+        } catch (NotEnoughException | IllegalCharException e) {
             System.out.println(e);
+            throw e;
         }
     }
-
 }

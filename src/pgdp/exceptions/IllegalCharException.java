@@ -1,6 +1,19 @@
 package pgdp.exceptions;
 
-public class IllegalCharException {
+public class IllegalCharException extends Exception{
+    private final char illegalChar;
+
+    public IllegalCharException(char illegalChar) {
+        this.illegalChar = illegalChar;
+    }
+
+    @Override
+    public String toString() {
+        return "IllegalCharException{" +
+                "illegalChar=" + escapeSpecial(illegalChar) +
+                '}';
+    }
+
     private String escapeSpecial(char used) {
         return switch (used) {
             case '\n' -> "line break (\\n)";
